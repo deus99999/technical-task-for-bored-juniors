@@ -3,14 +3,6 @@ import argparse
 
 
 def main():
-    # print("""new, help="Command to fetch and save a new activity
-    #     --type", type=str, help="Filter by activity type
-    #     --participants", type=int, help="Specify the number of participants
-    #     --price_min", type=float, help="Specify the minimum price range (0.0 - 1.0)
-    #     --price_max", type=float, help="Specify the maximum price range (0.0 - 1.0)
-    #     --accessibility_min", type=float, help="Specify the minimum accessibility (0.0 - 1.0)
-    #     --accessibility_max", type=float, help="Specify the maximum accessibility (0.0 - 1.0)
-    #     """)
     parser = argparse.ArgumentParser(
         prog='my_program ',
         description='Command line program that will use the API wrapper and the database class to get a random '

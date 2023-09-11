@@ -5,7 +5,8 @@ import sqlite3
 class APIWrapper:
     url = "http://www.boredapi.com/api/activity/"
 
-    def get_random_act(self, act_type=None, participants=None, price=None, accessibility=None):
+    def get_random_act(self, act_type=None, participants=None, price=None, minprice=None, maxprice=None,
+                       accessibility=None, minaccessibility=None, maxaccessibility=None):
         params = {}
         if act_type:
             params['type'] = act_type
@@ -13,8 +14,14 @@ class APIWrapper:
             params['participants'] = participants
         if price:
             params['price'] = price
+        if minprice and maxprice:
+            params['minprice'] = minprice
+            params['maxprice'] = maxprice
         if accessibility:
             params['accessibility'] = accessibility
+        if minaccessibility and maxaccessibility:
+            params['minaccessibility'] = minaccessibility
+            params['maxaccessibility'] = maxaccessibility
 
         response = requests.get(APIWrapper.url, params=params)
 
@@ -60,16 +67,16 @@ class DataBase:
             self.conn.rollback()
             print(f"Failed to save activity: {str(e)}")
 
-    def get_last_data(self):
+    def get_last_5_data(self):
         try:
             query_last_data = """
             SELECT * FROM activities
-            ORDER BY id DESC LIMIT 1
+            ORDER BY id DESC LIMIT 5
             """
 
             self.cursor.execute(query_last_data)
             records = self.cursor.fetchall()
-            print(records)
+            return records
 
         except Exception as e:
             print(f"Database not exits or invalid query.")
